@@ -15,10 +15,10 @@ app.post("/weather", (req, res) => {
   const cityName = req.body.cityName;
   if (cityName.length === 0) {
     res.status(400);
-    res.send("Please enter a city name");
+    res.render("index", { result: "City not found!" });
     return;
   }
-  res.send(cityName);
+  res.render("index", { result: cityName });
 });
 
 app.listen(3000);
