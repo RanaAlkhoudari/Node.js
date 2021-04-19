@@ -37,7 +37,7 @@ app.put("/posts/:title", (req, res) => {
     res.end("ok");
   } else {
     res.status(404);
-    res.send("This post does not exist!");
+    res.send("This blog does not exist!");
   }
 });
 
@@ -48,7 +48,7 @@ app.delete("/blogs/:title", (req, res) => {
     res.end("ok");
   } else {
     res.status(404);
-    res.send("This post does not exist!");
+    res.send("This blog does not exist!");
   }
 });
 
