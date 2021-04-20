@@ -29,13 +29,16 @@
      color: white;
      border: none
    }
+   p{
+     text-align: center;
+   }
   </style>
 </head>
 <body>
   <form action="/weather" method="POST">
    <input type="text" name="cityName" placeholder="Enter a City">
    <button>Submit <i class="fas fa-paper-plane"></i></button>
-   <h2>{{result}}</h2>
   </form>
+  <p>{{weatherText}}</p>
 </body>
 </html>
