@@ -68,7 +68,7 @@ app.get("/blogs", (req, res) => {
   const allFiles = [];
   fs.readdir(__dirname, (err, files) => {
     if (err) {
-      res.send(err);
+      res.send("Something went wrong");
     }
     files.forEach((file) => {
       if (!path.extname(file) && fs.statSync(file).isFile()) {
