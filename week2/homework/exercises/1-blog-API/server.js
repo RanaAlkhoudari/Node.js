@@ -2,35 +2,30 @@ const fs = require("fs");
 const path = require("path");
 const express = require("express");
 const app = express();
+
 app.use(express.json());
 
 app.post("/blogs", (req, res) => {
-  if (
-    typeof req.body.title === "undefined" ||
-    typeof req.body.content === "undefined"
-  ) {
+  if (req.body.title == null || req.body.content == null) {
     res.status(400);
     res.send("Invalid request");
     return;
   }
-  const title = req.body.title;
-  const content = req.body.content;
+  const { title } = req.body;
+  const { content } = req.body;
   fs.writeFileSync(title, content);
   res.status(201);
   res.end("ok");
 });
 
 app.put("/posts/:title", (req, res) => {
-  if (
-    typeof req.body.title === "undefined" ||
-    typeof req.body.content === "undefined"
-  ) {
+  if (req.body.title == null || req.body.content == null) {
     res.status(400);
     res.send("Invalid request");
     return;
   }
-  const title = req.params.title;
-  const content = req.body.content;
+  const { title } = req.params;
+  const { content } = req.body;
   if (fs.existsSync(title)) {
     fs.writeFileSync(title, content);
     res.status(200);
@@ -42,8 +37,9 @@ app.put("/posts/:title", (req, res) => {
 });
 
 app.delete("/blogs/:title", (req, res) => {
-  if (fs.existsSync(req.params.title)) {
-    fs.unlinkSync(req.params.title);
+  const { title } = req.params;
+  if (fs.existsSync(title)) {
+    fs.unlinkSync(title);
     res.status(200);
     res.end("ok");
   } else {
@@ -53,7 +49,7 @@ app.delete("/blogs/:title", (req, res) => {
 });
 
 app.get("/blogs/:title", (req, res) => {
-  const title = req.params.title;
+  const { title } = req.params;
   if (fs.existsSync(title)) {
     const post = fs.readFileSync(title);
     res.status(200);
@@ -68,6 +64,7 @@ app.get("/blogs", (req, res) => {
   const allFiles = [];
   fs.readdir(__dirname, (err, files) => {
     if (err) {
+      res.status(500);
       res.send("Something went wrong");
     }
     files.forEach((file) => {
@@ -79,9 +76,11 @@ app.get("/blogs", (req, res) => {
       }
     });
     if (allFiles.length === 0) {
+      res.status(404);
       res.send("Sorry, There isn't any blog");
       return;
     }
+    res.status(200);
     res.send(allFiles);
   });
 });
