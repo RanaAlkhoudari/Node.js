@@ -11,8 +11,7 @@ app.post("/blogs", (req, res) => {
     res.send("Invalid request");
     return;
   }
-  const { title } = req.body;
-  const { content } = req.body;
+  const { title, content } = req.body;
   fs.writeFileSync(title, content);
   res.status(201);
   res.end("ok");
