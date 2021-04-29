@@ -15,7 +15,7 @@ async function printBooks() {
       "https://restapiabasicauthe-sandbox.mxapps.io/api/books",
       {
         headers: {
-          Authorization: "Basic YWRtaW46aHZnWDhLbFZFYQ",
+          Authorization: "Basic YWRtaW46aHZnWDhLbFZFYQ==",
         },
       }
     );
